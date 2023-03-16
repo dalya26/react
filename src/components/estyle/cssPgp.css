@@ -1,0 +1,184 @@
+@import url('https://fonts.google.com/specimen/Poppins?query=po');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.bodyHP{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(231, 230, 238);
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    background-color: rgba(180, 188, 250, 0.856);
+    cursor: pointer;
+}
+
+.logo{
+    font-size: 45px;
+    color: rgb(0, 0, 0);
+    user-select: none;
+    font-family: 'Mochiy Pop P One', sans-serif;
+}
+
+.img{
+    width: 400pxç;
+    height: 300px;
+}
+
+.navigation a{
+    position: relative;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+.navigation a::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 3px;
+    background: rgb(0, 0, 0);
+    border-radius: 5px;
+    transform-origin: center;
+    transform: scaleX(0);
+    transition: transform .5s;
+}
+
+.navigation a:hover::after{
+    transform-origin: center;
+    transform: scaleX(1);
+}
+
+.navigation .btnLogin-popup{
+    width: 100px;
+    height: 50px;
+    background: rgba(180, 188, 250, 0.856);
+    border: 2px solid rgba(180, 188, 250, 0.856);
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    margin-left: 40px;
+    transition: .5s;
+}
+
+.btnLogin-popup:hover{
+    background: rgba(157, 167, 241, 0.856);
+    color: rgb(255, 255, 255);
+}
+
+
+/**.wrapper{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    background: transparent;
+    border: 2px solid royalblue;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 30px rgb(14, 13, 13);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .form-box{
+    width: 100%;
+    height: 170px;
+}*/
+
+.form-box{
+    font-size: 20px;
+    color: rgb(27, 7, 41);
+    text-align: center;
+
+}
+
+.input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid rgb(12, 11, 14);
+    margin: 30px 0;
+}
+
+.input-box label{
+    position: absolute;
+    top: 30%;
+    left: 1px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: rgb(7, 9, 12);
+    font-weight: 100;
+    pointer-events: none;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.logoM{
+    display: flex;
+}
+.logoM img{
+    height: 270px;
+    margin-top: 120px;
+    margin-right: 800px;
+    margin-left: 150px;
+}
+
+.textouno{
+    height: 400px;
+    margin-top: -200px;
+    margin-left: 300px;
+}
+
+.titulo{
+    font-size: 40px;
+}
+
+.descrip{
+    font-size: 30px;
+    font-family:  "Lucida Console", Courier, monospace;
+    font-style: italic;
+}
+
+.foter{
+    position: fixed;
+    top: 550px;
+    width: 1369px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(231, 230, 238);
+}
+
+
+
+
