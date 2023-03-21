@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios';
 //import { useNavigate } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
-import './estyle/cssSA.css';
-import { Tooltip } from 'primereact/tooltip';
+import { Fieldset } from 'primereact/fieldset';
+import { Menubar } from 'primereact/menubar';
 
 
 const ShowMaterias = () => {
@@ -18,37 +18,13 @@ const ShowMaterias = () => {
   function navigateTo(string){
     navigate(string);
   }
-
-  const home = (row) => {
-    navigateTo('/pgpA');
-  }
-  const out = (row) => {
-    navigateTo('/');
-  }
-  const prof = (row) => {
-    navigateTo('/t/');
-  }
-  const alum = (row) => {
-    navigateTo('/alumnos');
-  }
-
-  const newm = (row) => {
-    navigateTo('/topic/ne');
-  }
-
-  const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between">
-        <span >MATERIAS.</span>
-        <a class="newe" onClick={() => newm()}  style={{width: '10', height: '10'}} >New</a>
-    </div>
-  );
   
-  const footer = `In total there are ${topics ? topics.length : 0} materias registrados.`;
+  const footer = `En total hay ${topics ? topics.length : 0} materias registrados.`;
 
   const bodyTemplate = (rowData) => {
     return <div>
-    <Button label='Update' className="p-button-rounded p-button-success p-button-text"  onClick={() => editTopic(rowData)}/>
-      <Button label='Delete' className="p-button-rounded p-button-danger p-button-text"  onClick={() => deleteTopic(rowData.id)}/>
+      <Button icon="pi pi-file-edit" className="p-button-rounded p-button-success p-button-text" iconPos="right" onClick={() => editTopic(rowData)} />
+      <Button icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text" iconPos="right" onClick={() => deleteTopic(rowData.id)} />
     </div>
   }
 
@@ -87,29 +63,124 @@ const deleteTopic = async (_id) => {
     })
 }
 
-//Vista
+  let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
+  const end = <Button label='Salir' icon="pi pi-sign-out " className="p-button-rounded outlined p-button-danger p-button-text" iconPos="left" style={{ marginRight: '20px' }} onClick={() => out()} />;
 
+  const legendTemplate = (
+    <div >
+      <span className="pi pi-folder"></span>
+      <span className="font-bold text-lg" style={{ marginLeft: '8px' }}>Materias</span>
+    </div>
+  );
+
+  const items = [
+    {
+      label: 'Inicio',
+      icon: 'pi pi-home',
+      command: (event) => {
+        navigateTo('/indexp')
+      }
+    },
+    {
+      label: 'Grupos',
+      icon: 'pi pi-users',
+      items: [
+        {
+          label: 'Ver Grupos',
+          icon: 'pi pi-user-plus',
+          command: (event) => {
+            navigateTo('/grup')
+          }
+        },
+        {
+          label: 'Nuevo Grupo',
+          icon: 'pi pi-user-plus',
+          command: (event) => {
+            navigateTo('/grup/ne')
+          }
+        },
+        {
+          separator: true
+        },
+        {
+          label: 'Importar',
+          icon: 'pi pi-file-import'
+
+          //poner navegacion para exportar grupos en pdf
+        },
+        {
+          label: 'Exportar',
+          icon: 'pi pi-file-export',
+          items: [
+            {
+              label: 'CSV',
+              icon: 'pi pi-file-excel'
+              //poner navegacion para exportar grupos en pdf
+            },
+            {
+              label: 'PDF',
+              icon: 'pi pi-file-pdf'
+              //poner navegacion para exportar grupos en pdf
+            }
+          ]
+          //poner navegacion para importar grupos en csv
+        }
+      ]
+    },
+    {
+      label: 'Profesores',
+      icon: 'pi pi-briefcase',
+      command: (event) => {
+        navigateTo('/t/')
+      }
+    },
+    {
+      label: 'Estudiantes',
+      icon: 'pi pi-user-edit',
+      command: (event) => {
+        navigateTo('/alumnos')
+      }
+    },
+    {
+      label: 'Ajustes',
+      icon: 'pi pi-cog',
+      items: [
+        {
+          label: 'Perfil',
+          icon: 'pi pi-user',
+          command: (event) => {
+            navigateTo('/prfil')
+          }
+        }
+      ]
+    }
+  ];
+
+  const out = (row) => {
+    navigateTo('/');
+  }
+
+  const newm = (row) => {
+    navigateTo('/topic/ne');
+  }
 return (
-    <div>
-    <header>
-        <h2 class="logo">My List</h2>
-        <nav class="navigation">
-            <a onClick={() => home()}>School</a>
-            <a onClick={() => prof()}>Profesores</a>
-            <a onClick={() => alum()}>Estudiantes</a>
-            <button class="btnLogin-popup" onClick={() => out()}>Salir</button>
-        </nav>
+  <div>
+    <header className="card">
+      <Menubar start={start} model={items} end={end} />
     </header>
-    <div class="tabla">
-        <div className="card">
-            <DataTable value={topics} header={header} footer={footer} responsiveLayout="scroll">
+    <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '150px', marginRight: '200px' }} legend={legendTemplate}>
+      <div style={{ marginLeft: '980px' }}>
+        <Button label='New' className="p-button-rounded p-button-warning p-button-text" onClick={() => newm()} />
+      </div>
+      <div className="card">
+            <DataTable value={topics} footer={footer} responsiveLayout="scroll">
                 <Column field="nombre" header="Nombre"></Column>
                 <Column field="profesor" header="Profesor"></Column>
                 <Column field="horario" header="Horario"></Column>
                 <Column header="Acciones" body={bodyTemplate}></Column>
             </DataTable>
         </div>
-    </div>
+    </Fieldset>
     </div>
   )
 }

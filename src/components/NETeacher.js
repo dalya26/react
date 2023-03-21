@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'primereact/card';
+
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import axios from 'axios';
 import { useNavigate, useParams} from 'react-router-dom';
-import { Dropdown } from 'primereact/dropdown';
+import { Fieldset } from 'primereact/fieldset';
+import { Menubar } from 'primereact/menubar';
 import { MultiSelect } from 'primereact/multiselect';
 //import Swal from 'sweetalert2';
 
@@ -62,15 +63,6 @@ const NETeacher = () =>{
             navigateTo('/t')
     }
 
-//Botones
-
-    const footer = (
-        <span>
-            <Button label="Save" onClick={guardarDatos} icon="pi pi-check" />
-            <Button label="Cancel" icon="pi pi-times" className="p-button-secondary ml-2" />
-        </span>
-    );
-
     const [teacher, setTeacher] = useState(
         {
             id: 0,
@@ -126,10 +118,6 @@ const dropDownChange = (event) =>{
     })
 }
 
-
-
-//UseEffect
-
 useEffect(() =>{
     if(_id ===undefined)
     {
@@ -142,10 +130,21 @@ useEffect(() =>{
     obtenerMaterias();
 }, [])
 
+    let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
+
+    const legendTemplate = (
+        <div >
+            <span className="pi pi-folder-open"></span>
+            <span className="font-bold text-lg" style={{ marginLeft: '8px' }}>Nuevo profesor</span>
+        </div>
+    );
+
 return (
     <div>
-        <Card title="Advanced Card" subTitle="Subtitle" style={{ width: '25em' }} footer={footer}>
-            
+        <header className="card">
+            <Menubar start={start} />
+        </header>
+        <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '200px', marginRight: '200px' }} legend={legendTemplate}>  
         <span className="p-float-label">
             <InputText id='nombre' value={teacher.nombre} onChange={inputChange} name='nombre'/>
             <label htmlFor="nombre">Nombre</label>
@@ -154,13 +153,13 @@ return (
 
         <span className="p-float-label">
             <InputText id='apetpat' value={teacher.apetpat} onChange={inputChange} name='apetpat'/>
-            <label htmlFor="apetpat">ApetPat</label>
+            <label htmlFor="apetpat">Apellido paterno</label>
         </span>
         <br></br>
         
         <span className="p-float-label">
             <InputText id='apetmat' value={teacher.apetmat} onChange={inputChange} name='apetmat'/>
-            <label htmlFor="apetmat">Apetmat</label>
+            <label htmlFor="apetmat">Apellido materno</label>
         </span>
         <br></br>
 
@@ -208,9 +207,14 @@ return (
          optionLabel="name" 
          placeholder="Materias..." 
          maxSelectedLabels={3}
-         className="w-full md:w-20rem"/>
-        
-        </Card>
+         className="w-full md:w-14rem"/>
+        <label htmlFor="materia">Materias</label>
+        <br></br>
+        <span>
+            <Button label='Save' icon="pi pi-file-edit" className="p-button-rounded p-button-success p-button-text" onClick={guardarDatos} />
+            <Button label='Cancel' icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text p-button-secondary ml-2"  />
+        </span>
+        </Fieldset>
     </div>
   )
 }

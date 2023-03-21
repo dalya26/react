@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import axios from 'axios';
+import { Fieldset } from 'primereact/fieldset';
+import { Menubar } from 'primereact/menubar';
 import { useNavigate, useParams} from 'react-router-dom';
 //import Swal from 'sweetalert2';
 
@@ -38,12 +39,6 @@ const NETopic = () => {
             })
             navigateTo('/m')
         }
-        const footer = (
-            <span>
-                <Button label="Save" onClick={guardarDatos} icon="pi pi-check" />
-                <Button label="Cancel" icon="pi pi-times" className="p-button-secondary ml-2" />
-            </span>
-        );
 
         const [topic, setTopic] = useState(
             {
@@ -54,11 +49,11 @@ const NETopic = () => {
             }
         );
 
-//aqui getEmpleado
+//aqui getTopic
 
-    const getEmpleado = async ()=>{
+    const getTopic = async ()=>{
 
-        console.log("getEmpleado")
+        console.log("getTopic")
         await axios.get(`${endpoint}/materia`, {
             params: {id: _id}
         })
@@ -66,7 +61,7 @@ const NETopic = () => {
             setTopic(response.data)
         })
     }
-//Fin de getEmpleado
+//Fin de getTopic
 
     const inputChange = (event) =>{
         console.log("handleInputChange")
@@ -81,20 +76,31 @@ const NETopic = () => {
 //UseEffect
 
     useEffect(() =>{
-        if(_id ===undefined)
+        if(_id === undefined)
         {
             console.log('Sin parametros');
         }
         else
         {
-            getEmpleado();
+            getTopic();
         }
     }, [])
 
+    let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
+
+    const legendTemplate = (
+        <div >
+            <span className="pi pi-folder-open"></span>
+            <span className="font-bold text-lg" style={{ marginLeft: '8px' }}>Nueva materia</span>
+        </div>
+    );
+
     return (
         <div>
-            <Card title="Advanced Card" subTitle="Subtitle" style={{ width: '25em' }} footer={footer}>
-                
+            <header className="card">
+                <Menubar start={start} />
+            </header>
+            <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '200px', marginRight: '200px' }} legend={legendTemplate}>  
             <span className="p-float-label">
                 <InputText id='nombre' value={topic.nombre} onChange={inputChange} name='nombre'/>
                 <label htmlFor="nombre">Nombre</label>
@@ -107,13 +113,18 @@ const NETopic = () => {
             </span>
             <br></br>
             
-            <span className="p-float-label">
+            <span className="p-float-label" >
                 <InputText id='horario' value={topic.horario} onChange={inputChange} name='horario'/>
                 <label htmlFor="horario">Horario</label>
             </span>
             <br></br>
 
-            </Card>
+                <span>
+                    <Button label='Save' icon="pi pi-file-edit" className="p-button-rounded p-button-success p-button-text" onClick={guardarDatos} />
+                    <Button label='Cancel' icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text p-button-secondary ml-2"  />
+                </span>
+
+            </Fieldset>
         </div>
       )
 
