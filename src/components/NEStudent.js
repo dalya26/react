@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import axios from 'axios';
 import { useNavigate, useParams} from 'react-router-dom';
 import { Dropdown } from 'primereact/dropdown';
-import './estyle/cssSA.css';
+import { Fieldset } from 'primereact/fieldset';
+import { Menubar } from 'primereact/menubar';
 
 const NEStudent = () => {
     const endpoint = 'http://127.0.0.1:8000/api';
@@ -48,8 +48,6 @@ const NEStudent = () => {
             ...student,
             'id_materia' : selectedMateria
         })
-
-        
         await axios.post(`${endpoint}/alumno`, student)
         .then((response) => {
             console.log("Guardando...")
@@ -129,12 +127,21 @@ const getEmpleado = async ()=>{
         obtenerMaterias();
     }, [])
 
-  return (
-    <div class="contenido">
+    let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
 
-        <Card>
-            <h1>Estudiante</h1>
-            <div class="contentdos">
+    const legendTemplate = (
+        <div >
+            <span className="pi pi-folder-open"></span>
+            <span className="font-bold text-lg" style={{ marginLeft: '8px' }}>Nuevo estudiante</span>
+        </div>
+    );
+
+  return (
+    <div>
+        <header className="card">
+            <Menubar start={start} />
+        </header>            
+        <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '200px', marginRight: '200px' }} legend={legendTemplate}>  
         <span className="p-float-label">
             <InputText id='nombre' value={student.nombre} onChange={inputChange} name='nombre'/>
             <label htmlFor="nombre">Nombre</label>
@@ -183,15 +190,16 @@ const getEmpleado = async ()=>{
             optionLabel="name" 
             placeholder="Materrias..." 
             className="w-full md:w-14rem" />
+            <label htmlFor="materia">Materia</label>
         </span>
+        <br></br>
 
-        </div>
-        <span class="btns">
-            <Button label="Save" onClick={guardarDatos} icon="pi pi-check" />
-            <Button label="Cancel" icon="pi pi-times" className="p-button-secondary ml-2" />
-        </span>
+            <span>
+                    <Button label='Save' icon="pi pi-file-edit" className="p-button-rounded p-button-success p-button-text" onClick={guardarDatos} />
+                    <Button label='Cancel' icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text p-button-secondary ml-2"  />
+                </span>
         
-        </Card>
+        </Fieldset>
     </div>
   )
 }

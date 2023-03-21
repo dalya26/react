@@ -4,10 +4,10 @@ import { Column } from 'primereact/column';
 import axios from 'axios';
 import './estyle/cssSA.css';
 import { Menubar } from 'primereact/menubar';
+import { Fieldset } from 'primereact/fieldset';
 //import { useNavigate } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
-import { SpeedDial } from 'primereact/speeddial';
  
 
 const ShowProfesores = () =>{
@@ -20,40 +20,23 @@ function navigateTo(string){
     navigate(string);
   }
 
-  const home = (row) => {
-    navigateTo('/pgpA');
-  }
-
   const out = (row) => {
     navigateTo('/');
-  }
-  const alum = (row) => {
-    navigateTo('/alumnos');
-  }
-  const mat = (row) => {
-    navigateTo('/m');
   }
 
   const newp = (row) => {
     navigateTo('/teacher/ne');
   }
 
-  const header = (
-    <div className="flex flex-wrap align-items-center justify-content-between">
-        <span >PROFESORES.</span>
-        <a class="newe" onClick={() => newp()}>New</a>
-    </div>
-  );
   
   const footer = `In total there are ${teachers ? teachers.length : 0} profesores registrados.`;
     
 
-const bodyTemplate = (rowData) => {
+  const bodyTemplate = (rowData) => {
     return <div>
-    <Button icon="pi pi-file-edit" rounded text severity="success" iconPos="right" onClick={()=> editTeacher(rowData)}/>
-    <Button icon="pi pi-times" rounded text severity="danger" iconPos="right" onClick={()=> deleteTeacher(rowData.id)}/>
+      <Button icon="pi pi-file-edit" className="p-button-rounded p-button-success p-button-text" iconPos="right" onClick={() => editTeacher(rowData)} />
+      <Button icon="pi pi-times" className="p-button-rounded p-button-danger p-button-text" iconPos="right" onClick={() => deleteTeacher(rowData.id)} />
     </div>
-  
   }
 
 const editTeacher = (row) =>{
@@ -93,20 +76,110 @@ const deleteTeacher = async (_id) => {
     })
 }
 
+  let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
+  const end = <Button label='Salir' icon="pi pi-sign-out " className="p-button-rounded outlined p-button-danger p-button-text" iconPos="left" style={{ marginRight: '20px' }} onClick={() => out()} />;
+  const legendTemplate = (
+    <div >
+      <span className="pi pi-id-card"></span>
+      <span className="font-bold text-lg" style={{ marginLeft: '8px' }}>Profesores</span>
+    </div>
+  );
+
+  const items = [
+    {
+      label: 'Inicio',
+      icon: 'pi pi-home',
+      command: (event) => {
+        navigateTo('/indexp')
+      }
+    },
+    {
+      label: 'Grupos',
+      icon: 'pi pi-users',
+      items: [
+        {
+          label: 'Ver Grupos',
+          icon: 'pi pi-user-plus',
+          command: (event) => {
+            navigateTo('/grup')
+          }
+        },
+        {
+          label: 'Nuevo Grupo',
+          icon: 'pi pi-user-plus',
+          command: (event) => {
+            navigateTo('/grup/ne')
+          }
+        },
+        {
+          separator: true
+        },
+        {
+          label: 'Importar',
+          icon: 'pi pi-file-import'
+
+          //poner navegacion para exportar grupos en pdf
+        },
+        {
+          label: 'Exportar',
+          icon: 'pi pi-file-export',
+          items: [
+            {
+              label: 'CSV',
+              icon: 'pi pi-file-excel'
+              //poner navegacion para exportar grupos en pdf
+            },
+            {
+              label: 'PDF',
+              icon: 'pi pi-file-pdf'
+              //poner navegacion para exportar grupos en pdf
+            }
+          ]
+          //poner navegacion para importar grupos en csv
+        }
+      ]
+    },
+    {
+      label: 'Estudiantes',
+      icon: 'pi pi-briefcase',
+      command: (event) => {
+        navigateTo('/alumnos')
+      }
+    },
+    {
+      label: 'Materias',
+      icon: 'pi pi-book',
+      command: (event) => {
+        navigateTo('/m')
+      }
+    },
+    {
+      label: 'Ajustes',
+      icon: 'pi pi-cog',
+      items: [
+        {
+          label: 'Perfil',
+          icon: 'pi pi-user',
+          command: (event) => {
+            navigateTo('/prfil')
+          }
+        }
+      ]
+    }
+  ];
+
 return (
   <div>
-    <header>
-        <h2 class="logo">My List</h2>
-        <nav class="navigation">
-            <a onClick={() => home()}>School</a>
-            <a onClick={() => alum()}>Estudiantes</a>
-            <a onClick={() => mat()}>Materias</a>
-            <button class="btnLogin-popup" onClick={() => out()}>Salir</button>
-        </nav>
+    <header className="card">
+      <Menubar model={items} start={start} end={end} />
     </header>
-    <div class="tabla">
+
+    <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '50px', marginRight: '50px' }} legend={legendTemplate}>
+      <div style={{ marginLeft: '1100px' }}>
+        <Button label='New' className="p-button-rounded p-button-warning p-button-text" onClick={() => newp()} />
+      </div>
         <div className="card">
-            <DataTable value={teachers} header={header} footer={footer} responsiveLayout="scroll">
+            <DataTable value={teachers} footer={footer} responsiveLayout="scroll">
                 <Column field="nombre" header="Nombre"></Column>
                 <Column field="apetpat" header="Apellido paterno"></Column>
                 <Column field="apetmat" header="Apellido materno"></Column>
@@ -120,7 +193,7 @@ return (
                 <Column header="Acciones" body={bodyTemplate}></Column>
             </DataTable>
         </div>
-      </div>
+      </Fieldset>
     </div>
   )
 
