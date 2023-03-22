@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios';
-import './estyle/cssSA.css';
 //import { useNavigate } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
@@ -18,10 +17,6 @@ let navigate = useNavigate();
 
 function navigateTo(string){
   navigate(string);
-}
-
-const home = (row) => {
-  navigateTo('/pgpA');
 }
 
 const out = (row) => {
@@ -53,15 +48,15 @@ const editStudent = (row) =>{
 }, []);
 
 
-const getAllStudents = async () =>{
-  
+  const getAllStudents = async () => {
+
     await axios.get(`${endpoint}/alumnos`)
-    .then(response => {
-      console.log(response.data);
-      setStudents(response.data)
-    }).catch(function (error){
-      console.log(error);
-    })
+      .then(response => {
+        console.log(response.data);
+        setStudents(response.data)
+      }).catch(function (error) {
+        console.log(error);
+      })
   }
 
 //eliminar
@@ -77,6 +72,7 @@ const deleteStudent = async (_id) => {
 }
 
   let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
+  const end = <Button label='Salir' icon="pi pi-sign-out " className="p-button-rounded outlined p-button-danger p-button-text" iconPos="left" style={{ marginRight: '20px' }} onClick={() => out()} />;
 
   const legendTemplate = (
     <div >
@@ -101,14 +97,14 @@ const deleteStudent = async (_id) => {
           label: 'Ver Grupos',
           icon: 'pi pi-user-plus',
           command: (event) => {
-            navigateTo('/grup')
+            navigateTo('/gp')
           }
         },
         {
           label: 'Nuevo Grupo',
           icon: 'pi pi-user-plus',
           command: (event) => {
-            navigateTo('/grup/ne')
+            navigateTo('/gp/ne')
           }
         },
         {
@@ -171,7 +167,7 @@ const deleteStudent = async (_id) => {
 return (
   <div>
     <header className="card">
-      <Menubar model={items} start={start} />
+      <Menubar model={items} start={start} end={end} />
     </header>
 
     <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '150px', marginRight: '100px' }} legend={legendTemplate}>
@@ -186,7 +182,8 @@ return (
             <Column field="matricula" header="Matrícula" class='mac'></Column>
             <Column field="edad" header="Edad" class='edc'></Column>
             <Column field="sexo" header="Sexo" class='sec'></Column>
-            <Column field="nombre_materia" header="Materia" class='matc'></Column>              
+            <Column field="nombre_materia" header="Materia" class='matc'></Column>
+            <Column field="nombre_grupo" header="Grupo" class='matc'></Column>
             <Column header="Acciones" body={bodyTemplate} class='accc'></Column>
             </DataTable>
         </div>

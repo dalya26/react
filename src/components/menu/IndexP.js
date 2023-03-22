@@ -47,14 +47,14 @@ import 'primeicons/primeicons.css';
            label: 'Ver Grupos',
            icon: 'pi pi-user-plus',
            command: (event) => {
-             navigateTo('/grup')
+             navigateTo('/gp')
            }
          },
          {
            label: 'Nuevo Grupo',
            icon: 'pi pi-user-plus',
            command: (event) => {
-             navigateTo('/grup/ne')
+             navigateTo('/gp/ne')
            }
          },
          {
@@ -90,6 +90,13 @@ import 'primeicons/primeicons.css';
        icon: 'pi pi-briefcase',
        command: (event) => {
          navigateTo('/t/')
+       }
+     },
+     {
+       label: 'Estudiantes',
+       icon: 'pi pi-user-edit',
+       command: (event) => {
+         navigateTo('/alumnos')
        }
      },
      {

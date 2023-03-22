@@ -89,14 +89,14 @@ const deleteTopic = async (_id) => {
           label: 'Ver Grupos',
           icon: 'pi pi-user-plus',
           command: (event) => {
-            navigateTo('/grup')
+            navigateTo('/gp')
           }
         },
         {
           label: 'Nuevo Grupo',
           icon: 'pi pi-user-plus',
           command: (event) => {
-            navigateTo('/grup/ne')
+            navigateTo('/gp/ne')
           }
         },
         {
@@ -174,9 +174,7 @@ return (
       </div>
       <div className="card">
             <DataTable value={topics} footer={footer} responsiveLayout="scroll">
-                <Column field="nombre" header="Nombre"></Column>
-                <Column field="profesor" header="Profesor"></Column>
-                <Column field="horario" header="Horario"></Column>
+                <Column field="nombre" header="Materia"></Column>
                 <Column header="Acciones" body={bodyTemplate}></Column>
             </DataTable>
         </div>

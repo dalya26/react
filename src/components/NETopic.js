@@ -44,8 +44,6 @@ const NETopic = () => {
             {
                 id: 0,
                 nombre: '',
-                profesor:'',
-                horario:'',
             }
         );
 
@@ -103,19 +101,7 @@ const NETopic = () => {
             <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '200px', marginRight: '200px' }} legend={legendTemplate}>  
             <span className="p-float-label">
                 <InputText id='nombre' value={topic.nombre} onChange={inputChange} name='nombre'/>
-                <label htmlFor="nombre">Nombre</label>
-            </span>
-            <br></br>
-    
-            <span className="p-float-label">
-                <InputText id='profesor' value={topic.profesor} onChange={inputChange} name='profesor'/>
-                <label htmlFor="profesor">Profesor</label>
-            </span>
-            <br></br>
-            
-            <span className="p-float-label" >
-                <InputText id='horario' value={topic.horario} onChange={inputChange} name='horario'/>
-                <label htmlFor="horario">Horario</label>
+                <label htmlFor="nombre">Materia</label>
             </span>
             <br></br>
 
