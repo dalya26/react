@@ -21,16 +21,28 @@ const NEStudent = () => {
     //Nueva Funcion
     const [selectedMateria, setSelectedMateria] = useState(null);
     const [optionList, setOptionList] = useState([]);
+
+    const [selectedGrupo, setSelectedGrupo] = useState(null);
+    const [optionListGrupo, setOptionListGrupo] = useState([]);
     
-    const obtenerMaterias = async (e) =>{
-        console.log("pobtenerMaterias")
-    
+    const obtenerMaterias = async (e) => {
+        console.log("obtenerMaterias")
+
         await axios.get(`${endpoint}/combo_materias`)
-        .then ((response) => {
-            console.log(response.data)
-            setOptionList(response.data)
-        })
-    
+            .then((response) => {
+                console.log(response.data)
+                setOptionList(response.data)
+            })
+    }
+
+    const obtenerGrupos = async (e) => {
+        console.log("obtenergrupos")
+
+        await axios.get(`${endpoint}/grupo/combo`)
+            .then((response) => {
+                console.log(response.data)
+                setOptionListGrupo(response.data)
+            })
     }
 
     //Aviso de Privacidad
@@ -46,7 +58,8 @@ const NEStudent = () => {
         e.preventDefault()
         setStudent ({
             ...student,
-            'id_materia' : selectedMateria
+            'id_materia' : selectedMateria,
+            'id_grupo' : selectedGrupo
         })
         await axios.post(`${endpoint}/alumno`, student)
         .then((response) => {
@@ -68,6 +81,7 @@ const NEStudent = () => {
             edad: '',
             sexo: '',
             id_materia:0,
+            id_grupo: 0,
         }
     );
 
@@ -113,6 +127,19 @@ const getEmpleado = async ()=>{
         })
     }
 
+    const dropDownChangeGrupo = (event) => {
+        console.log("dropDownChangeGrupo")
+        console.log(event.target.name)
+        console.log(event.target.value)
+
+        setSelectedGrupo(event.target.value);
+
+        setStudent({
+            ...student,
+            [event.target.name]: event.target.value.code
+        })
+    }
+
     //UseEffect
 
     useEffect(() =>{
@@ -125,6 +152,7 @@ const getEmpleado = async ()=>{
             getEmpleado();
         }
         obtenerMaterias();
+        obtenerGrupos();
     }, [])
 
     let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
@@ -188,9 +216,21 @@ const getEmpleado = async ()=>{
             onChange={dropDownChange}  
             options={optionList} 
             optionLabel="name" 
-            placeholder="Materrias..." 
+            placeholder="Materias..." 
             className="w-full md:w-14rem" />
             <label htmlFor="materia">Materia</label>
+        </span>
+        <br></br>
+
+        <span className="p-float-label">
+            <Dropdown value={selectedGrupo}
+                name='id_grupo'
+                onChange={dropDownChangeGrupo}
+                options={optionListGrupo}
+                optionLabel="name"
+                placeholder="Grupos..."
+                className="w-full md:w-14rem" />
+                <label htmlFor="grupo">Grupo</label>
         </span>
         <br></br>
 

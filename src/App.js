@@ -17,18 +17,12 @@ import MainP from './components/menu/MainP';
 import IndexP from './components/menu/IndexP';
 import UserRegister from './components/UserRegister';
 import ViewUsers from "./components/ViewUsers";
+import ShowGrupos from "./components/ShowGrupos";
+import NEGrupo from "./components/NEGrupo";
 
 
 
 function App() {
-//useEffect(()=>{
-  //mostrarAlerta();
-//}, []);
-//const mostrarAlerta=()=>{
-  //SSwal.fire('Aviso de Privicidad', 'Crayolas', 'info');
-//}
-
-
 
   const isLoggedIn = !!localStorage.getItem('token');
   return (
@@ -44,6 +38,8 @@ function App() {
           <Route path="/users" element={isLoggedIn ? <ViewUsers /> : <Navigate to="/" />}/>
           <Route path="/user/ne/:_id?" element={isLoggedIn ? <UserRegister /> : <Navigate to="/" />} />
 
+          <Route path="/gp" element={isLoggedIn ? <ShowGrupos/> : <Navigate to="/" />} />
+          <Route path="/gp/ne/:_id?" element={isLoggedIn ? <NEGrupo /> : <Navigate to="/" />} />
 
           <Route path="/alumnos/" element={isLoggedIn ? <ShowAlumnos /> : <Navigate to="/" />} />
 
