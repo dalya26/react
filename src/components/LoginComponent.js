@@ -1,4 +1,3 @@
-import './estyle/cssLC.css';
 import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios';
 import { Menubar } from 'primereact/menubar';
@@ -12,43 +11,12 @@ const LoginComponent = () => {
 
   const endpoint = 'http://127.0.0.1:8000/api';
 
-  let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
-
   const legendTemplate = (
     <div >
       <span className="pi pi-user"></span>
       <span className="font-bold text-lg" style={{marginLeft:'8px'}}>Iniciar Sesión</span>
     </div>
   );
-
-  const date = new Date();
-
-  const [dataTime, setDataTime] = useState({
-    horas: date.getHours(),
-    minutos: date.getMinutes(),
-    segundos: date.getSeconds()
-  });
-
-
-  useEffect(() => {
-
-    const timer = setInterval(() => {
-
-      const date = new Date();
-      setDataTime({
-        horas: date.getHours(),
-        minutos: date.getMinutes(),
-        segundos: date.getSeconds()
-      });
-      
-
-    }, 1000);
-
-
-    return () => clearInterval(timer);
-
-  }, []);
-
 
 
   const toast = useRef(null);
@@ -102,6 +70,37 @@ const LoginComponent = () => {
     })
 
   }
+
+  let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
+
+  const date = new Date();
+
+  const [dataTime, setDataTime] = useState({
+    horas: date.getHours(),
+    minutos: date.getMinutes(),
+    segundos: date.getSeconds()
+  });
+
+
+  useEffect(() => {
+
+    const timer = setInterval(() => {
+
+      const date = new Date();
+      setDataTime({
+        horas: date.getHours(),
+        minutos: date.getMinutes(),
+        segundos: date.getSeconds()
+      });
+      
+
+    }, 1000);
+
+
+    return () => clearInterval(timer);
+
+  }, []);
+
 
   return (
 

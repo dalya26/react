@@ -2,16 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios';
-import './estyle/cssSA.css';
 import { Menubar } from 'primereact/menubar';
 import { Fieldset } from 'primereact/fieldset';
-//import { useNavigate } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
  
 
 const ShowProfesores = () =>{
-    const [teachers, setTeachers] = useState([]);
+    const [teachers, setTeacher] = useState([]);
 const endpoint = 'http://127.0.0.1:8000/api';
 
 let navigate = useNavigate();
@@ -44,25 +42,21 @@ const editTeacher = (row) =>{
     console.log("Click: " + row.nombre);
   }
 
-  
   useEffect(() => {
-    getAllTeachers();
+    getAllTeacher();
   }, []);
-
-//duda, ¿Cómo le hago aquí?
   
-//La duda continua
+  const getAllTeacher = async () => {
 
-const getAllTeachers = async () =>{
-  
     await axios.get(`${endpoint}/profesores`)
-    .then(response => {
-      console.log(response.data);
-      setTeachers(response.data)
-    }).catch(function (error){
-      console.log(error);
-    })
+      .then(response => {
+        console.log(response.data);
+        setTeacher(response.data)
+      }).catch(function (error) {
+        console.log(error);
+      })
   }
+
 
 //eliminar
 
@@ -70,7 +64,7 @@ const deleteTeacher = async (_id) => {
     await axios.post(`${endpoint}/profesor/borrar`,{
         id: _id
     }).then(response => {
-      getAllTeachers();
+      getAllTeacher();
     }).catch(function (error){
       console.log(error)
     })
@@ -101,14 +95,14 @@ const deleteTeacher = async (_id) => {
           label: 'Ver Grupos',
           icon: 'pi pi-user-plus',
           command: (event) => {
-            navigateTo('/grup')
+            navigateTo('/gp')
           }
         },
         {
           label: 'Nuevo Grupo',
           icon: 'pi pi-user-plus',
           command: (event) => {
-            navigateTo('/grup/ne')
+            navigateTo('/gp/ne')
           }
         },
         {
@@ -187,8 +181,6 @@ return (
                 <Column field="edad" header="Edad"></Column>
                 <Column field="sexo" header="Sexo"></Column>
                 <Column field="cedula" header="Cedula"></Column>
-                <Column field="asignatura" header="Division"></Column>
-                <Column field="habilidades" header="Habilidades"></Column>
                 <Column field="nombre_materia" header="Materia"></Column>
                 <Column header="Acciones" body={bodyTemplate}></Column>
             </DataTable>
@@ -196,7 +188,5 @@ return (
       </Fieldset>
     </div>
   )
-
-
 }
 export default ShowProfesores

@@ -73,8 +73,6 @@ const NETeacher = () =>{
             edad: '',
             sexo: '',
             cedula: '',
-            asignatura: '',
-            habilidades: '',
             id_materia:0,
         }
     );
@@ -185,18 +183,6 @@ return (
         <span className="p-float-label">
             <InputText id='cedula' value={teacher.cedula} onChange={inputChange} name='cedula'/>
             <label htmlFor="cedula">Cedula</label>
-        </span>
-        <br></br>
-
-        <span className="p-float-label">
-            <InputText id='asignatura' value={teacher.asignatura} onChange={inputChange} name='asignatura'/>
-            <label htmlFor="asignatura">Division</label>
-        </span>
-        <br></br>
-
-        <span className="p-float-label">
-            <InputText id='habilidades' value={teacher.habilidades} onChange={inputChange} name='habilidades'/>
-            <label htmlFor="habilidades">Habilidades</label>
         </span>
         <br></br>
 
