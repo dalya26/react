@@ -24,9 +24,11 @@ const LoginComponent = () => {
   const toast = useRef(null);
   let navigate = useNavigate();
 
+
   const [datosLogin, setDatosLogin] = useState({
     email: "",
     password: "",
+
   });
 
   const inputChange = (event) => {
@@ -55,7 +57,7 @@ const LoginComponent = () => {
       detail: "Favor de llenar todos los campos",
     });
   };
-
+  
   const fn_login = async (event) => {
     event.preventDefault();
 
@@ -230,6 +232,7 @@ const LoginComponent = () => {
             outlined
           />
         </div>
+
       </Fieldset>
     </div>
   );

@@ -10,10 +10,9 @@ import { Splitter, SplitterPanel } from 'primereact/splitter';
 import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
-import { HasAccess } from "@permify/react-role";
+        
 
- function IndexP() {
-  
+ function IndexA() {
    let navigate = useNavigate();
    function navigateTo(string) {
      navigate(string);
@@ -44,30 +43,11 @@ import { HasAccess } from "@permify/react-role";
        label: 'Inicio',
        icon: 'pi pi-home',
        command: (event) => {
-         navigateTo('/indexp')
+         navigateTo('/indexa')
        }
      },
-     {
-       label: 'Grupos',
-       icon: 'pi pi-users',
-       command: (event) => {
-        navigateTo('/gp')
-       }
-     },
-     {
-       label: 'Maestros',
-       icon: 'pi pi-briefcase',
-       command: (event) => {
-         navigateTo('/t/')
-       }
-     },
-     {
-       label: 'Estudiantes',
-       icon: 'pi pi-user-edit',
-       command: (event) => {
-         navigateTo('/alumnos')
-       }
-     },
+     
+     
      {
        label: 'Materias',
        icon: 'pi pi-book',
@@ -269,4 +249,4 @@ import { HasAccess } from "@permify/react-role";
    );
  }
 
-export default IndexP
+export default IndexA

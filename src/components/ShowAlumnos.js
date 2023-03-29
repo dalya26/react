@@ -2,16 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios';
-//import { useNavigate } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
-import { Fieldset } from 'primereact/fieldset';
+import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { SlideMenu } from 'primereact/slidemenu';
 
 
 const ShowAlumnos = () => {
   const [students, setStudents] = useState([]);
 const endpoint = 'http://127.0.0.1:8000/api';
+
+const columns = [
+  { field: 'nombre', header: 'Nombre' },
+{ field: 'apetpat', header: 'Apellido Paterno' },
+{ field: 'apetmat', header: 'Apellido Materno' },
+{ field: 'matricula', header: 'Matricula' },
+{ field: 'edad', header: 'Edad' },
+{ field: 'sexo', header: 'Sexo' },
+{ field: 'nombre_grupo', header: 'Grupo' }
+];
+
+/**const exportColumns = cols.map((col) => ({ title: col.header, dataKey: col.field }));
+const [visibleStudent, setVisibleStudent] = useState(columns);*/
+
+
 
 let navigate = useNavigate();
 
@@ -157,10 +172,25 @@ const deleteStudent = async (_id) => {
           label: 'Perfil',
           icon: 'pi pi-user',
           command: (event) => {
-            navigateTo('/prfil')
+            navigateTo('/perfil')
           }
         }
       ]
+    }
+  ];
+
+  const itemssecond = [
+    {
+      label: 'Alumnos',
+      icon: 'pi pi-users',
+      
+    },
+    {
+      label: 'Crear',
+      icon: 'pi pi-plus-circle',
+      command: (event) => {
+        navigateTo('/student/ne')
+      }
     }
   ];
 
@@ -170,11 +200,14 @@ return (
       <Menubar model={items} start={start} end={end} />
     </header>
 
-    <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '150px', marginRight: '100px' }} legend={legendTemplate}>
-      <div style={{ marginLeft: '980px' }}>
-        <Button label='New' className="p-button-rounded p-button-warning p-button-text" onClick={() => newe()} />
-      </div>
-      <div className="card">
+    <Splitter style={{ marginTop:'10px', marginRight:'10px', marginLeft:'10px' }}>
+            <SplitterPanel className="flex align-items-center justify-content-center" size={25} minSize={10}>
+            <div style={{ marginLeft: '20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px' }}>
+            <SlideMenu model={itemssecond} viewportHeight={220} menuWidth={175}></SlideMenu>
+            </div>
+            </SplitterPanel>
+            <SplitterPanel className="flex align-items-center justify-content-center" size={75}>
+            <div className="card" style={{marginLeft:'10px', marginRight:'10px', marginTop:'10px', marginBlockEnd:'10px'}}>
          <DataTable value={students} footer={footer} responsiveLayout="scroll">
             <Column field="nombre" header="Nombre" class='nomc'></Column>
             <Column field="apetpat" header="Apellido Paterno" class='appc'></Column>
@@ -182,12 +215,21 @@ return (
             <Column field="matricula" header="Matrícula" class='mac'></Column>
             <Column field="edad" header="Edad" class='edc'></Column>
             <Column field="sexo" header="Sexo" class='sec'></Column>
-            <Column field="nombre_materia" header="Materia" class='matc'></Column>
             <Column field="nombre_grupo" header="Grupo" class='matc'></Column>
             <Column header="Acciones" body={bodyTemplate} class='accc'></Column>
             </DataTable>
         </div>
-  </Fieldset>
+        </SplitterPanel>
+        </Splitter>
+        <Splitter style={{ marginLeft:'20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px', borderColor:'dimgray' }}>
+            <SplitterPanel>
+                <div style={{textAlign:'center'}}>
+                    <footer >
+                        <p> &copy; My List 2023 - Algunos derechos reservados.</p>
+                    </footer>
+                </div>
+            </SplitterPanel>
+        </Splitter>
 </div>
   )
 }

@@ -173,7 +173,7 @@ const UserView = () => {
                     <DataTable value={users} footer={footer} responsiveLayout="scroll">
                         <Column field="name" header="Nombre"></Column>
                         <Column field="email" header="Email"></Column>
-                        <Column field="rol_rol" header="Rol"></Column>
+                        <Column field="rol" header="Rol"></Column>
                         <Column header="Acciones" body={bodyTemplate}></Column>
                     </DataTable>
                 </div>

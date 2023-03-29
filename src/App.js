@@ -1,6 +1,7 @@
 //import logo from './logo.svg';
 //import './App.css';
 //import Swal from 'sweetalert2';
+import { PermifyProvider } from "@permify/react-role";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";  //theme
 import "primereact/resources/primereact.min.css";                  //core css
@@ -19,21 +20,33 @@ import UserRegister from './components/UserRegister';
 import ViewUsers from "./components/ViewUsers";
 import ShowGrupos from "./components/ShowGrupos";
 import NEGrupo from "./components/NEGrupo";
-
+import Perfil from "./components/Perfil";
+import NotFund from "./components/NotFund"
+import IndexA from "./components/menu/IndexA";
+import { useState } from "react";
+import { HasAccess } from "@permify/react-role";
+import { PermifyContext } from "@permify/react-role";
+import { usePermify } from '@permify/react-role';
 
 
 function App() {
 
   const isLoggedIn = !!localStorage.getItem('token');
+  
+   
   return (
+   
     <div className="App">
       <BrowserRouter>
         <Routes>
 
-          <Route path="/" element={<MainP/>}/>
           <Route path="/login" element={<LoginComponent />} />
+          <Route path="/" element={<MainP/>}/>
+          <Route path="/register" element={isLoggedIn ? <UserRegister /> : <Navigate to="/" />} />
 
+          <Route path="/perfil" element={isLoggedIn ? <Perfil /> : <Navigate to="/" />} />
 
+          <Route path="/indexa" element={isLoggedIn ? <IndexA /> : <Navigate to="/" />} />
           <Route path="/indexp" element={isLoggedIn ? <IndexP /> : <Navigate to="/" />} />
           <Route path="/users" element={isLoggedIn ? <ViewUsers /> : <Navigate to="/" />}/>
           <Route path="/user/ne/:_id?" element={isLoggedIn ? <UserRegister /> : <Navigate to="/" />} />
@@ -53,6 +66,9 @@ function App() {
 
           <Route path="/topic/ne/:_id?" element={isLoggedIn ? <NETopic /> : <Navigate to="/" />} /> 
 
+          <Route path="*" element={<NotFund/>}/>
+
+      
         </Routes>
       </BrowserRouter>
     </div>
