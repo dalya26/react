@@ -57,37 +57,50 @@ const LoginComponent = () => {
       detail: "Favor de llenar todos los campos",
     });
   };
+
   
-  const fn_login = async (event) => {
+  const fn_login = async (event)=> {
+    
     event.preventDefault();
 
-    await axios
-      .post(`${endpoint}/login`, datosLogin)
-      .then((response) => {
-        if (
-          (datosLogin.password != "" && datosLogin.email == "") ||
-          (datosLogin.password == "" && datosLogin.email != "") ||
-          (datosLogin.password == "" && datosLogin.email == "")
-        ) {
-          console.log("vacios");
-          show();
-        } else if (
-          datosLogin.email != "admin@admin.com" ||
-          datosLogin.password != 12345678
-        ) {
-          console.log("hannah");
-          showIncorrecto();
-        }
-        if (
-          datosLogin.email == "admin@admin.com" &&
-          datosLogin.password == 12345678
-        ) {
-          localStorage.setItem("token", "ok");
-          navigateTo("/alumnos");
-        }
-      })
-      .catch((error) => {});
-  };
+    await axios.post(`${endpoint}/login`, datosLogin)
+    .then((response) => {
+      
+      console.log("Validando Acceso..")
+      console.log(response.data)
+      console.log(response.data.userid)
+      const $iduser = response.data.userid;
+
+      console.log('this is my name' + $iduser)
+
+      if(response.data.acceso === "Admin")
+      {
+
+        localStorage.setItem('token',"Admin")
+        navigateTo('/indexp/' )
+      }
+      else if(response.data.acceso === "Teacher")
+      {
+
+        localStorage.setItem('token',"Teacher")
+        navigateTo('/indexa/')
+      }else{
+        if(response.data.acceso === "Student")
+      {
+
+        localStorage.setItem('token',"Student")
+        navigateTo('/m/')
+      }
+      }
+      {
+        show();
+      }
+
+    }).catch((error) => {
+      
+    })
+
+  }
 
   let start = (
     <img
