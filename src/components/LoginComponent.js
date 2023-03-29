@@ -6,7 +6,6 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
-import { usePermify } from '@permify/react-role';
 
 const LoginComponent = () => {
   const endpoint = 'http://127.0.0.1:8000/api';
@@ -44,14 +43,9 @@ const LoginComponent = () => {
   const show = () => {
     toast.current.show({ severity: 'info', summary: 'Info', detail: 'Datos incorrectos!!' });
   };
-  const { setUser } = usePermify();
 
   const fn_login = async (event)=> {
-    setUser({
-      id: "2",
-      roles: ["admin", "manager"],
-      permissions: ["post-create", "user-delete", "content-show"]
-   })
+    
     event.preventDefault();
 
     await axios.post(`${endpoint}/login`, datosLogin)
