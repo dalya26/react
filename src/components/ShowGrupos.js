@@ -4,13 +4,15 @@ import { Column } from 'primereact/column';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
-import { Fieldset } from 'primereact/fieldset';
+import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { SlideMenu } from 'primereact/slidemenu';
 import { Menubar } from 'primereact/menubar';
 
 
 const ShowGrupos = () => {
-    const [grupo, setGrupo] = useState([]);
     const endpoint = 'http://127.0.0.1:8000/api';
+
+    const [grupo, setGrupo] = useState([]);
 
     let navigate = useNavigate();
 
@@ -84,13 +86,7 @@ const ShowGrupos = () => {
             label: 'Grupos',
             icon: 'pi pi-users',
             items: [
-                {
-                    label: 'Nuevo Grupo',
-                    icon: 'pi pi-user-plus',
-                    command: (event) => {
-                        navigateTo('/gp/ne')
-                    }
-                },
+                
                 {
                     separator: true
                 },
@@ -141,12 +137,27 @@ const ShowGrupos = () => {
                     label: 'Perfil',
                     icon: 'pi pi-user',
                     command: (event) => {
-                        navigateTo('/prfil')
+                        navigateTo('/perfil')
                     }
                 }
             ]
         }
     ];
+
+    const itemssecond = [
+        {
+          label: 'Grupos',
+          icon: 'pi pi-th-large',
+          
+        },
+        {
+          label: 'Crear',
+          icon: 'pi pi-plus-circle',
+          command: (event) => {
+            navigateTo('/gp/ne')
+          }
+        }
+      ];
 
     const out = (row) => {
         navigateTo('/');
@@ -160,17 +171,30 @@ const ShowGrupos = () => {
             <header className="card">
                 <Menubar start={start} model={items} end={end} />
             </header>
-            <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '100px', marginRight: '250px' }} legend={legendTemplate}>
-                <div style={{ marginLeft: '980px' }}>
-                    <Button label='New' className="p-button-rounded p-button-warning p-button-text" onClick={() => newg()} />
-                </div>
-                <div className="card">
+            <Splitter style={{ marginTop:'10px', marginRight:'10px', marginLeft:'10px' }}>
+            <SplitterPanel className="flex align-items-center justify-content-center" size={25} minSize={10}>
+            <div style={{ marginLeft: '20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px' }}>
+            <SlideMenu model={itemssecond} viewportHeight={220} menuWidth={175}></SlideMenu>
+            </div>
+            </SplitterPanel>
+            <SplitterPanel className="flex align-items-center justify-content-center" size={75}>
+            <div className="card" style={{marginLeft:'10px', marginRight:'10px', marginTop:'10px', marginBlockEnd:'10px'}}>
                     <DataTable value={grupo} footer={footer} responsiveLayout="scroll">
                         <Column field="grupo" header="Grupo"></Column>
                         <Column header="Acciones" body={bodyTemplate}></Column>
                     </DataTable>
                 </div>
-            </Fieldset>
+                </SplitterPanel>
+        </Splitter>
+        <Splitter style={{ marginLeft:'20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px', borderColor:'dimgray' }}>
+            <SplitterPanel>
+                <div style={{textAlign:'center'}}>
+                    <footer >
+                        <p> &copy; My List 2023 - Algunos derechos reservados.</p>
+                    </footer>
+                </div>
+            </SplitterPanel>
+        </Splitter>
         </div>
     )
 }

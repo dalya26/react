@@ -6,9 +6,9 @@ import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { Button } from 'primereact/button';
 import { Fieldset } from 'primereact/fieldset';
+import { usePermify } from '@permify/react-role';
 
 const LoginComponent = () => {
-
   const endpoint = 'http://127.0.0.1:8000/api';
 
   const legendTemplate = (
@@ -25,6 +25,7 @@ const LoginComponent = () => {
   const [datosLogin,setDatosLogin] = useState({
     email: '',
     password: '',
+    rol:'Admin ',
   });
 
   const inputChange = (event) => {
@@ -43,8 +44,14 @@ const LoginComponent = () => {
   const show = () => {
     toast.current.show({ severity: 'info', summary: 'Info', detail: 'Datos incorrectos!!' });
   };
+  const { setUser } = usePermify();
 
   const fn_login = async (event)=> {
+    setUser({
+      id: "2",
+      roles: ["admin", "manager"],
+      permissions: ["post-create", "user-delete", "content-show"]
+   })
     event.preventDefault();
 
     await axios.post(`${endpoint}/login`, datosLogin)
@@ -52,15 +59,30 @@ const LoginComponent = () => {
       
       console.log("Validando Acceso..")
       console.log(response.data)
+      console.log(response.data.userid)
+      const $iduser = response.data.userid;
 
-      if(response.data.acceso === "Ok")
+      console.log('this is my name' + $iduser)
+
+      if(response.data.acceso === "Admin")
       {
-        console.log("Ok....")
 
-        localStorage.setItem('token',"Ok")
-        navigateTo('/indexp')
+        localStorage.setItem('token',"Admin")
+        navigateTo('/indexp/' )
       }
-      else
+      else if(response.data.acceso === "Teacher")
+      {
+
+        localStorage.setItem('token',"Teacher")
+        navigateTo('/indexa/')
+      }else{
+        if(response.data.acceso === "Student")
+      {
+
+        localStorage.setItem('token',"Student")
+        navigateTo('/m/')
+      }
+      }
       {
         show();
       }
@@ -133,13 +155,13 @@ const LoginComponent = () => {
 
           <div className="card flex justify-content-center" style={{ marginLeft: '35px', fontSize: '25px', fontFamily: 'monospace' }}>
             <span className="p-float-label" style={{ fontSize: '35px', fontFamily: 'monospace' }}>
-              <Password name="password" value={datosLogin.password} feedback={false} onChange={(e) => inputChange(e)} />
+              <Password name="password" value={datosLogin.password} feedback={false} onChange={(e) => inputChange(e)} toggleMask/>
               <label style={{ fontSize: '19px', fontFamily: 'monospace' }}>Contraseña</label>
             </span>
           </div>
           <br></br>
           <div className="card flex justify-content-center" style={{ marginLeft: '70px', fontSize: '25px', fontFamily: 'monospace' }}>
-            <Button label="Iniciar" onClick={fn_login} icon="pi pi-user" className="p-button-rounded p-button-success p-button-text" outlined />
+            <Button label="Iniciar" onClick={fn_login} icon="pi pi-user" className="p-button-rounded p-button-success p-button-text" />
           </div>
       </Fieldset>
     </div>

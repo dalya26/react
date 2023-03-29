@@ -3,7 +3,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from 'axios';
 import { Menubar } from 'primereact/menubar';
-import { Fieldset } from 'primereact/fieldset';
+import { Splitter, SplitterPanel } from 'primereact/splitter';
+import { SlideMenu } from 'primereact/slidemenu';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
  
@@ -155,10 +156,25 @@ const deleteTeacher = async (_id) => {
           label: 'Perfil',
           icon: 'pi pi-user',
           command: (event) => {
-            navigateTo('/prfil')
+            navigateTo('/perfil')
           }
         }
       ]
+    }
+  ];
+
+  const itemssecond = [
+    {
+      label: 'Profesores',
+      icon: 'pi pi-user-edit',
+      
+    },
+    {
+      label: 'Crear',
+      icon: 'pi pi-plus-circle',
+      command: (event) => {
+        navigateTo('/teacher/ne')
+      }
     }
   ];
 
@@ -168,11 +184,14 @@ return (
       <Menubar model={items} start={start} end={end} />
     </header>
 
-    <Fieldset style={{ fontSize: '25px', fontFamily: 'monospace', margin: '25px', marginLeft: '50px', marginRight: '50px' }} legend={legendTemplate}>
-      <div style={{ marginLeft: '1100px' }}>
-        <Button label='New' className="p-button-rounded p-button-warning p-button-text" onClick={() => newp()} />
-      </div>
-        <div className="card">
+    <Splitter style={{ marginTop:'10px', marginRight:'10px', marginLeft:'10px' }}>
+            <SplitterPanel className="flex align-items-center justify-content-center" size={25} minSize={10}>
+            <div style={{ marginLeft: '20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px' }}>
+            <SlideMenu model={itemssecond} viewportHeight={220} menuWidth={175}></SlideMenu>
+            </div>
+            </SplitterPanel>
+            <SplitterPanel className="flex align-items-center justify-content-center" size={75}>
+            <div className="card" style={{marginLeft:'10px', marginRight:'10px', marginTop:'10px', marginBlockEnd:'10px'}}>
             <DataTable value={teachers} footer={footer} responsiveLayout="scroll">
                 <Column field="nombre" header="Nombre"></Column>
                 <Column field="apetpat" header="Apellido paterno"></Column>
@@ -185,7 +204,17 @@ return (
                 <Column header="Acciones" body={bodyTemplate}></Column>
             </DataTable>
         </div>
-      </Fieldset>
+        </SplitterPanel>
+        </Splitter>
+        <Splitter style={{ marginLeft:'20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px', borderColor:'dimgray' }}>
+            <SplitterPanel>
+                <div style={{textAlign:'center'}}>
+                    <footer >
+                        <p> &copy; My List 2023 - Algunos derechos reservados.</p>
+                    </footer>
+                </div>
+            </SplitterPanel>
+        </Splitter>
     </div>
   )
 }

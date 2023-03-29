@@ -18,25 +18,15 @@ const ViewUsers = () =>{
     }
 
     const [selectedRol, setSelectedRol] = useState(null);
-    const [optionList, setOptionList] = useState([]);
+    const roles = [
+        { name: 'Student', code: 'rol' },
+        { name: 'Teacher', code: 'rol' }
+    ];
 
-    const obtenerRoles = async (e) =>{
-        console.log("obtenerRoles")
-
-        await axios.get(`${endpoint}/rol/roles`)
-        .then ((response)=>{
-            console.log(response.data)
-            setOptionList(response.data)
-        })
-    }
 
     const saveUsers = async (e) => {
-        e.preventDefault()
-        setUsers ({
-            ...users,
-            'id_rol' : selectedRol
-        })
-        await axios.post(`${endpoint}/registeruser`, users)
+        e.preventDefault();
+        await axios.post(`${endpoint}/login`, users)
         .then((response) =>{
             console.log("Guardando...")
             console.log(response.data)
@@ -52,7 +42,7 @@ const ViewUsers = () =>{
             name: '',
             email: '',
             password: '',
-            id_rol: 0,
+            rol: '',
         }
     );
 
@@ -77,19 +67,6 @@ const ViewUsers = () =>{
             [event.target.name] : event.target.value
         })
     };
-
-    const dropDownChange = (event) => {
-        console.log("drpDownChange")
-        console.log(event.target.name)
-        console.log(event.target.value)
-
-        setSelectedRol(event.target.value);
-
-        setUsers({
-            ...users,
-            [event.target.name]: event.target.value.code
-        })
-    }
         
         useEffect(() => {
             if (_id === undefined) {
@@ -98,7 +75,6 @@ const ViewUsers = () =>{
             else {
                 getUsers();
             }
-            obtenerRoles();
         }, [])
 
     let start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop: '3px' }}></img>;
@@ -140,17 +116,10 @@ const ViewUsers = () =>{
                 </span>
                 </div>
                 <br></br>
-
                 <div>
                 <span className="p-float-label">
-                    <Dropdown value={selectedRol}
-                        name='id_rol' 
-                        onChange={dropDownChange} 
-                        options={optionList} 
-                        optionLabel="name" 
-                        placeholder='Roles...' 
-                        className="w-full md:w-14rem" />
-                        <label htmlFor="rol">Rol</label>
+                    <InputText type="rol" value={users.rol} onChange={inputChange} name='rol' />
+                    <label htmlFor="rol">Rol de usuario</label>
                 </span>
                 </div>
                 <br></br>
