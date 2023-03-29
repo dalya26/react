@@ -10,7 +10,6 @@ import { Splitter, SplitterPanel } from 'primereact/splitter';
 import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
-import { HasAccess } from "@permify/react-role";
 
  function IndexP() {
   
