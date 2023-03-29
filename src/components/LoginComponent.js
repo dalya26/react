@@ -58,6 +58,7 @@ const LoginComponent = () => {
     });
   };
 
+<<<<<<< HEAD
   const fn_login = async (event)=> {
     if (
       (datosLogin.password != "" && datosLogin.email == "") ||
@@ -142,6 +143,51 @@ const LoginComponent = () => {
       })
       .catch((error) => {});
   };*/
+=======
+  
+  const fn_login = async (event)=> {
+    
+    event.preventDefault();
+
+    await axios.post(`${endpoint}/login`, datosLogin)
+    .then((response) => {
+      
+      console.log("Validando Acceso..")
+      console.log(response.data)
+      console.log(response.data.userid)
+      const $iduser = response.data.userid;
+
+      console.log('this is my name' + $iduser)
+
+      if(response.data.acceso === "Admin")
+      {
+
+        localStorage.setItem('token',"Admin")
+        navigateTo('/indexp/' )
+      }
+      else if(response.data.acceso === "Teacher")
+      {
+
+        localStorage.setItem('token',"Teacher")
+        navigateTo('/indexa/')
+      }else{
+        if(response.data.acceso === "Student")
+      {
+
+        localStorage.setItem('token',"Student")
+        navigateTo('/m/')
+      }
+      }
+      {
+        show();
+      }
+
+    }).catch((error) => {
+      
+    })
+
+  }
+>>>>>>> afdfc1d5e9abb4477369b7a5ba641c651be39041
 
   let start = (
     <img
