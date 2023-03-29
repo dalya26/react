@@ -59,7 +59,7 @@ const LoginComponent = () => {
   };
 
   //login
-  
+
   const fn_login = async (event)=> {
     if (
       (datosLogin.password != "" && datosLogin.email == "") ||
@@ -88,12 +88,12 @@ const LoginComponent = () => {
       else if(response.data.acceso === "Teacher")
       {
         localStorage.setItem('token',"Teacher")
-        navigateTo('/indexa/')
+        navigateTo('/indexm/')
       }else{
         if(response.data.acceso === "Student")
       {
         localStorage.setItem('token',"Student")
-        navigateTo('/m/')
+        navigateTo('/indexa/')
       }
       }
       {
