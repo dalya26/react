@@ -65,7 +65,7 @@ const NETeacher = () => {
   //Swal.fire('Aviso de Privicidad', 'Crayolas Profesores', 'info');
   //}
 
-  const validar = async (e) => {
+  /**const validar = async (e) => {
     await axios.get(`${endpoint}/profesor`, teacher).then((response) => {
       if (
         teacher.nombre == "" ||
@@ -84,26 +84,26 @@ const NETeacher = () => {
         guardarDatos();
       }
     });
-  };
+  };*/
 
   //Guardar
 
   const guardarDatos = async (e) => {
     e.preventDefault();
     setTeacher({
-      ...teacher,
-      id_materia: selectedMateria,
-    });
+        ...teacher,
+        'id_materia' : selectedMateria
+    })
 
-    await axios
-      .post(`${endpoint}/profesor`, teacher)
-      .then((response) => {
-        console.log("Guardando...");
-        console.log(response.data);
-      })
-      .catch((error) => {});
-    navigateTo("/t");
-  };
+    await axios.post(`${endpoint}/profesor`, teacher)
+        .then((response) => {
+            console.log("Guardando..")
+        }).catch((error) => {
+            
+        })
+    navigateTo('/t/')
+}
+
 
   const regresar = async (e) => {
     e.preventDefault();
@@ -317,7 +317,7 @@ const NETeacher = () => {
             label="Save"
             icon="pi pi-file-edit"
             className="p-button-rounded p-button-success p-button-text"
-            onClick={validar}
+            onClick={guardarDatos}
           />
           <Button
             label="Cancel"

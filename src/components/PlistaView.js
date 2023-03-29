@@ -21,13 +21,6 @@ const PlistaView = () => {
 
   const toast = useRef(null);
 
-    const showS = () => {
-        toast.current.show({severity:'success', summary: 'Success', detail:'Message Content', life: 3000});
-    }
-    const showE = () => {
-      toast.current.show({severity:'error', summary: 'Error', detail:'Message Content', life: 3000});
-  }
-
   const si = async(_id)=>{
     const pase = {
       id_alumno: _id,
