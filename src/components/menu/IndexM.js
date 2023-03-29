@@ -10,9 +10,10 @@ import { Splitter, SplitterPanel } from 'primereact/splitter';
 import { Image } from 'primereact/image';
 import { Card } from 'primereact/card';
 import { Panel } from 'primereact/panel';
-        
+import { HasAccess } from "@permify/react-role";
 
- function IndexA() {
+ function IndexM() {
+  
    let navigate = useNavigate();
    function navigateTo(string) {
      navigate(string);
@@ -43,17 +44,42 @@ import { Panel } from 'primereact/panel';
        label: 'Inicio',
        icon: 'pi pi-home',
        command: (event) => {
-         navigateTo('/indexa')
+         navigateTo('/indexm')
        }
      },
-     
+     {
+       label: 'Grupos',
+       icon: 'pi pi-users',
+       command: (event) => {
+        navigateTo('/gpo')
+       }
+     },
+     {
+       label: 'Estudiantes',
+       icon: 'pi pi-user-edit',
+       command: (event) => {
+         navigateTo('/alum')
+       }
+     },
+     {
+       label: 'Materias',
+       icon: 'pi pi-book',
+       command: (event) => {
+         navigateTo('/mat')
+       }
+     },
+     {
+       label: 'Ajustes',
+       icon: 'pi pi-cog',
+       items: [
          {
            label: 'Perfil',
            icon: 'pi pi-user',
            command: (event) => {
-             navigateTo('/perfilA')
+             navigateTo('/perfilM')
            }
-       
+         }
+       ]
      }
    ];
 
@@ -69,6 +95,16 @@ import { Panel } from 'primereact/panel';
     <SplitterPanel className="flex align-items-center justify-content-center" size={20} minSize={10} style={{ marginLeft:'10px', marginRight:'10px',marginTop:'10px'}}>
         <div style={{marginRight:'9px', marginLeft:'9px', marginTop:'9px', marginBlockEnd:'10px'}}>
             <Accordion multiple activeIndex={[0]}>
+                <AccordionTab header="Alumnos" style={{fontFamily: 'monospace',fontSize:'17px'}}>
+                <ScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
+                    <p className="m-0" style={{textAlign:'justify', fontFamily: 'monospace'}}>
+                    La oferta educativa es el conjunto de aspectos y características relacionadas con la enseñanza que se da a conocer para su 
+                    consumo, una oferta se realiza con distintos promotores, es diseñada desde la administración educativa, sometida a reglamentos, 
+                    normas, concretada en asignaturas, programas, horarios de grupo, académicos con perfiles adecuados, y de este modo se imparta 
+                    oficialmente en los centros educativos.
+                    </p>
+                    </ScrollPanel>
+                </AccordionTab>
                 <AccordionTab header="Academia" style={{fontFamily: 'monospace',fontSize:'17px'}}>
                 <ScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
                     <p className="m-0" style={{textAlign:'justify', fontFamily: 'monospace'}}>
@@ -93,18 +129,29 @@ import { Panel } from 'primereact/panel';
                     </p>
                   </ScrollPanel>
                 </AccordionTab>
-                
+                <AccordionTab header="Vinculación" style={{fontFamily: 'monospace',fontSize:'17px'}}>
+                <ScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
+                    <p className="m-0" style={{textAlign:'justify', fontFamily: 'monospace'}}>
+                    Tiene como objetivo promover una mayor vinculación con los sectores público, privado y social tanto nacionales como internacionales, 
+                    a través de la concertación y celebración de convenios que coadyuven a elevar la calidad de las funciones académicas, de investigación, 
+                    de educación continua y que contribuyan al fortalecimiento del impacto institucional de la Universidad en su zona de influencia. 
+                    
+                    <p></p>
+                    Dentro de las funciones que se desprenden de la Secretaría están:
+                    <ul>
+                      <li>El seguimiento a egresados en su colocación en el sector productivo, supervisando los estudios realizados para conocer los índices ocupacionales.</li>
+                      <li>Supervisar la implantación de programas de capacitación, actualización y especialización de la comunidad estudiantil, egresados universitarios, de los sectores productivo, público y social y sociedad en general.</li>
+                      <li>Coordinar estudios de investigación para la detección de necesidades.</li>
+                      <li>Promover e impulsar el intercambio académico con instituciones educativas nacionales, extranjeras y organismos internacionales, que fortalezcan la pertinencia y calidad del modelo educativo de la UTTEC.</li>
+                      <li>Participar en comisiones académicas y de vinculación para la actualización de planes y programas de estudio, integrando las propuestas de empresarios, industriales y profesionales del sector productivo.</li>
+                      <li>Supervisar el desarrollo de proyectos para fomentar la productividad y competitividad del sector público a través del Centro de Evaluación en competencias laborales.</li>
+                      <li>Coordinar y supervisar el desarrollo de estudios y servicios tecnológicos que contemplen la solución de problemas de los diversos sectores.</li>
+                    </ul>
+                    </p>
+                  </ScrollPanel>
+                </AccordionTab>
             </Accordion>
-            <Panel header="Redes Sociales" style={{fontFamily: 'monospace',fontSize:'17px'}}>
-              <p className="m-0">
-              <ul>
-                  <li><a href='https://m.facebook.com/UTTECsitiooficial/'>Facebook</a></li>
-                  <li><a href='https://twitter.com/uttecoficial'>Twitter</a></li>
-                  <li><a href='https://www.instagram.com/uttecoficial/?igshid=efqze56p4vgj'>Instagram</a></li>
-                  <li><a href='https://www.youtube.com/user/UTTEC100'>YouTube</a></li>
-              </ul>
-              </p>
-            </Panel>
+            
             </div>
     </SplitterPanel>
     <SplitterPanel>
@@ -117,17 +164,15 @@ import { Panel } from 'primereact/panel';
                     del sector productivo y a los requerimientos del crecimiento económico y social que requiere el País.
                     </p>
             </Card>
-              </div>
-              
-    </SplitterPanel>
-    <SplitterPanel>
-              <div style={{marginLeft:'20px', marginBlockEnd:'20px', marginTop:'20px'}}>
+            <div style={{marginLeft:'20px', marginBlockEnd:'20px', marginTop:'20px'}}>
                 <p style={{textAlign:'center', fontFamily: 'monospace', fontSize:'25px'}}>Centro escolar</p>
                 <Image src="http://hellodf.com/wp-content/uploads/2016/01/CP_Zacatecas.jpg" alt="Image" width="250" preview />          
                 <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria12.jpg" alt="Image" preview width="250" />
                 <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" preview />
               </div>
+              </div>
     </SplitterPanel>
+   
     </Splitter>
 
 
@@ -146,4 +191,4 @@ import { Panel } from 'primereact/panel';
    );
  }
 
-export default IndexA
+export default IndexM

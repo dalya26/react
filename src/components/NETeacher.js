@@ -69,8 +69,8 @@ const NETeacher = () => {
     await axios.get(`${endpoint}/profesor`, teacher).then((response) => {
       if (
         teacher.nombre == "" ||
-        teacher.app == "" ||
-        teacher.apm == "" ||
+        teacher.apetpat == "" ||
+        teacher.apetmat == "" ||
         teacher.edad == "" ||
         teacher.matricula == "" ||
         teacher.sexo == "" ||
@@ -301,14 +301,13 @@ const NETeacher = () => {
         </span>
         <br></br>
 
-        <MultiSelect
+        <Dropdown
           value={selectedMateria}
           name="id_materia"
           onChange={dropDownChange}
           options={optionList}
           optionLabel="name"
           placeholder="Materias..."
-          maxSelectedLabels={3}
           className="w-full md:w-14rem"
         />
         <label htmlFor="materia">Materias</label>

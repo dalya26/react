@@ -16,7 +16,7 @@ import { Toast } from 'primereact/toast';
 import { Image } from 'primereact/image';
 
 
- function Perfil() {
+ function PerfilM() {
     const [text, setText] = useState('');
     const [value, setValue] = useState(60);
     const [valuetwo, setValuetwo] = useState(0);
@@ -58,45 +58,10 @@ import { Image } from 'primereact/image';
 
    const itemssecond = [
     {
-        label:'Usuarios',
-        icon:'pi pi-fw pi-user',
-        items:[
-            {
-                label:'Nuevo',
-                icon:'pi pi-fw pi-user-plus',
-                command: (event) => {
-                    navigateTo('/register')
-                  }
-            },
-            {
-                label:'Listas',
-                icon:'pi pi-list'
-            },
-            {
-                label:'Historial',
-                icon:'pi pi-history'
-            },
-            {
-                label:'Reportes',
-                icon:'pi pi-link'
-            },
-            
-        ]
-    },
-    {
         label:'Eventos',
         icon:'pi pi-fw pi-calendar',
         items:[
-            {
-                label:'Editar',
-                icon:'pi pi-fw pi-pencil',
-                items:[
-                {
-                    label:'Guardar',
-                    icon:'pi pi-fw pi-calendar-plus'
-                }
-                ]
-            },
+            
             {
                 label:'Archivo',
                 icon:'pi pi-fw pi-calendar-times',
@@ -120,15 +85,7 @@ import { Image } from 'primereact/image';
             {
                 label:'Miembros',
                 icon:'pi pi-undo'
-            },
-            {
-                label:'Asociado',
-                icon:'pi pi-id-card'
-            },
-            {
-                label:'Nuevo',
-                icon:'pi pi-pencil'
-            },
+            }
 
         ]
     },
@@ -184,69 +141,49 @@ import { Image } from 'primereact/image';
 ];
 
    
-   const items = [
-     {
-       label: 'Inicio',
-       icon: 'pi pi-home',
-       command: (event) => {
-         navigateTo('/indexp')
-       }
-     },
-     {
-       label: 'Grupos',
-       icon: 'pi pi-users',
-       items: [
-         {
-           label: 'Ver Grupos',
-           icon: 'pi pi-user-plus',
-           command: (event) => {
-             navigateTo('/gp')
-           }
-         },
-         {
-           label: 'Nuevo Grupo',
-           icon: 'pi pi-user-plus',
-           command: (event) => {
-             navigateTo('/gp/ne')
-           }
-         }
-       ]
-     },
-     {
-       label: 'Maestros',
-       icon: 'pi pi-briefcase',
-       command: (event) => {
-         navigateTo('/t/')
-       }
-     },
-     {
-       label: 'Estudiantes',
-       icon: 'pi pi-user-edit',
-       command: (event) => {
-         navigateTo('/alumnos')
-       }
-     },
-     {
-       label: 'Materias',
-       icon: 'pi pi-book',
-       command: (event) => {
-         navigateTo('/m')
-       }
-     },
-     {
-       label: 'Ajustes',
-       icon: 'pi pi-cog',
-       items: [
-         {
-          label: 'New user',
+const items = [
+    {
+      label: 'Inicio',
+      icon: 'pi pi-home',
+      command: (event) => {
+        navigateTo('/indexm')
+      }
+    },
+    {
+      label: 'Grupos',
+      icon: 'pi pi-users',
+      command: (event) => {
+       navigateTo('/gpo')
+      }
+    },
+    {
+      label: 'Estudiantes',
+      icon: 'pi pi-user-edit',
+      command: (event) => {
+        navigateTo('/alum')
+      }
+    },
+    {
+      label: 'Materias',
+      icon: 'pi pi-book',
+      command: (event) => {
+        navigateTo('/mat')
+      }
+    },
+    {
+      label: 'Ajustes',
+      icon: 'pi pi-cog',
+      items: [
+        {
+          label: 'Perfil',
           icon: 'pi pi-user',
           command: (event) => {
-            navigateTo('/register')
+            navigateTo('/perfilM')
           }
         }
-       ]
-     }
-   ];
+      ]
+    }
+  ];
 
    const start = <img alt="logo" src="https://cdn-icons-png.flaticon.com/512/1180/1180898.png" style={{ height: '70px', width: '70px', marginLeft: '20px', marginTop:'3px' }}></img>;
    const end = <Button label='Salir' icon="pi pi-sign-out " className="p-button-rounded outlined p-button-danger p-button-text" iconPos="left" style={{ marginRight: '20px' }} onClick={() => out()} />;
@@ -265,10 +202,10 @@ import { Image } from 'primereact/image';
     <Splitter style={{ marginLeft:'20px', marginRight:'20px', marginTop:'20px', marginBlockEnd:'20px' }}>
             <SplitterPanel className="flex align-items-center justify-content-center" size={20} minSize={10}>
             <Card style={{fontFamily: 'monospace',fontSize:'17px', marginTop:'10px', marginLeft:'10px', marginRight:'10px', borderBlockColor:'black'}}>
-            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png" className="mr-2" shape="circle" />
+            <Avatar image="https://primefaces.org/cdn/primereact/images/avatar/onyamalimba.png" className="mr-2" shape="circle" />
                         <div className="flex flex-column align">
-                            <strong className="font-bold" style={{fontFamily:'monospace', fontSize:'20px'}}>Alicia Robledo</strong>
-                            <p className="text-sm">Administrador (a)</p>
+                            <strong className="font-bold" style={{fontFamily:'monospace', fontSize:'20px'}}>Alberto Morales</strong>
+                            <p className="text-sm">Profesor (a)</p>
                         </div>
             </Card>
             <Card style={{fontFamily: 'monospace',fontSize:'17px', marginTop:'5px', marginLeft:'5px', marginRight:'5px', borderBlockColor:'black'}}>
@@ -277,31 +214,7 @@ import { Image } from 'primereact/image';
             </SplitterPanel>
             <SplitterPanel size={80}>
                 <Splitter layout="vertical">
-                    <SplitterPanel className="flex align-items-center justify-content-center" size={15}>
-                        <Accordion multiple activeIndex={[0]}>
-                        <AccordionTab header="Vinculación" style={{fontFamily: 'monospace',fontSize:'17px'}}>
-                    <ScrollPanel style={{ width: '100%', height: '200px' }} className="custombar1">
-                        <p className="m-0" style={{textAlign:'justify', fontFamily: 'monospace'}}>
-                        Tiene como objetivo promover una mayor vinculación con los sectores público, privado y social tanto nacionales como internacionales, 
-                        a través de la concertación y celebración de convenios que coadyuven a elevar la calidad de las funciones académicas, de investigación, 
-                        de educación continua y que contribuyan al fortalecimiento del impacto institucional de la Universidad en su zona de influencia. 
-                        
-                        <p></p>
-                        Dentro de las funciones que se desprenden de la Secretaría están:
-                        <ul>
-                          <li>El seguimiento a egresados en su colocación en el sector productivo, supervisando los estudios realizados para conocer los índices ocupacionales.</li>
-                          <li>Supervisar la implantación de programas de capacitación, actualización y especialización de la comunidad estudiantil, egresados universitarios, de los sectores productivo, público y social y sociedad en general.</li>
-                          <li>Coordinar estudios de investigación para la detección de necesidades.</li>
-                          <li>Promover e impulsar el intercambio académico con instituciones educativas nacionales, extranjeras y organismos internacionales, que fortalezcan la pertinencia y calidad del modelo educativo de la UTTEC.</li>
-                          <li>Participar en comisiones académicas y de vinculación para la actualización de planes y programas de estudio, integrando las propuestas de empresarios, industriales y profesionales del sector productivo.</li>
-                          <li>Supervisar el desarrollo de proyectos para fomentar la productividad y competitividad del sector público a través del Centro de Evaluación en competencias laborales.</li>
-                          <li>Coordinar y supervisar el desarrollo de estudios y servicios tecnológicos que contemplen la solución de problemas de los diversos sectores.</li>
-                        </ul>
-                        </p>
-                      </ScrollPanel>
-                    </AccordionTab>
-                        </Accordion>
-                    </SplitterPanel>
+                    
                     <SplitterPanel size={85}>
                         <Splitter>
                             <SplitterPanel className="flex align-items-center justify-content-center" size={20}>
@@ -315,6 +228,7 @@ import { Image } from 'primereact/image';
                             </SplitterPanel>
                             <SplitterPanel className="flex align-items-center justify-content-center" size={80}>
                                 <div className="card flex justify-content-center">
+                                <p style={{textAlign:'center', fontFamily: 'monospace', fontSize:'25px'}}>Centro escolar</p>
                                     <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria10.jpg" alt="Image" width="250" />
                                     <Image src="https://primefaces.org/cdn/primereact/images/galleria/galleria12.jpg" alt="Image" preview width="250" />
                                 </div>
@@ -339,4 +253,4 @@ import { Image } from 'primereact/image';
    );
  }
 
-export default Perfil
+export default PerfilM
